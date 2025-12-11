@@ -16,10 +16,6 @@ public class EmployeeWebController {
     
     @Autowired
     private EmployeeService employeeService;
-    
-    /**
-     * Display the main page with list of all employees
-     */
     @GetMapping
     public String index(Model model) {
         List<Employee> employees = employeeService.getEmployees();
@@ -27,20 +23,14 @@ public class EmployeeWebController {
         model.addAttribute("employee", new Employee());
         return "index";
     }
-    
-    /**
-     * Add a new employee
-     */
+
     @PostMapping("/add")
     public String addEmployee(@ModelAttribute Employee employee, RedirectAttributes redirectAttributes) {
         employeeService.addEmployees(employee);
         redirectAttributes.addFlashAttribute("successMessage", "Employee added successfully!");
         return "redirect:/employees";
     }
-    
-    /**
-     * Update an existing employee
-     */
+
     @PostMapping("/update")
     public String updateEmployee(@ModelAttribute Employee employee, RedirectAttributes redirectAttributes) {
         try {
@@ -51,10 +41,7 @@ public class EmployeeWebController {
         }
         return "redirect:/employees";
     }
-    
-    /**
-     * Show edit form for an employee
-     */
+
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable Long id, Model model, RedirectAttributes redirectAttributes) {
         List<Employee> employees = employeeService.getEmployees();
